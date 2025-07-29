@@ -342,7 +342,7 @@ writeDocx opts doc = do
   -- are normalized as lowercase.
   let newDynamicParaProps = filter
         (\sty -> not $ hasStyleName sty $ smParaStyle styleMaps)
-        (Set.toList $ stDynamicParaProps st)
+        ((Set.toList $ stDynamicParaProps st) ++ ["Compact List"])
 
       newDynamicTextProps = filter
         (\sty -> not $ hasStyleName sty $ smCharStyle styleMaps)
@@ -586,9 +586,17 @@ writeDocx opts doc = do
   return $ fromArchive archive
 
 newParaPropToOpenXml :: ParaStyleName -> Element
-newParaPropToOpenXml (fromStyleName -> s) =
+newParaPropToOpenXml (fromStyleName -> s) = do
   let styleId = T.filter (not . isSpace) s
-  in mknode "w:style" [ ("w:type", "paragraph")
+  if styleId == "CompactList"
+     then mknode "w:style" [ ("w:type", "paragraph")
+                      , ("w:customStyle", "1")
+                      , ("w:styleId", "CompactList")]
+     [ mknode "w:name" [("w:val", "Compact List")] ()
+     , mknode "w:basedOn" [("w:val","Compact")] ()
+     , mknode "w:qFormat" [] ()
+     ]
+     else mknode "w:style" [ ("w:type", "paragraph")
                       , ("w:customStyle", "1")
                       , ("w:styleId", styleId)]
      [ mknode "w:name" [("w:val", s)] ()
