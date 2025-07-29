@@ -1271,7 +1271,8 @@ header when requesting a document from a URL:
         - Normal
         - Body Text
         - First Paragraph
-        - Compact
+        - Compact [for tables]
+        - Compact List
         - Title
         - Subtitle
         - Author
