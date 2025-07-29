@@ -43,6 +43,14 @@
       <w:spacing w:before="36" w:after="36" />
     </w:pPr>
   </w:style>
+  <w:style w:type="paragraph" w:customStyle="1" w:styleId="CompactList">
+    <w:name w:val="Compact List" />
+    <w:basedOn w:val="BodyText" />
+    <w:qFormat />
+    <w:pPr>
+      <w:spacing w:before="36" w:after="36" />
+    </w:pPr>
+  </w:style>
   <w:style w:type="paragraph" w:styleId="Title">
     <w:name w:val="Title" />
     <w:basedOn w:val="Normal" />

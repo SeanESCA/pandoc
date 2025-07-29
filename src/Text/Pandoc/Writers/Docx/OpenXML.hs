@@ -415,10 +415,11 @@ blockToOpenXML' opts (Plain lst) = do
   isInTable <- gets stInTable
   isInList <- gets stInList
   let block = blockToOpenXML opts (Para lst)
-  prop <- pStyleM "Compact"
-  if isInTable || isInList
-     then withParaProp prop block
-     else block
+  if isInList
+     then withParaPropM (pStyleM "Compact List") block
+     else if isInTable
+        then withParaPropM (pStyleM "Compact") block
+        else block
 blockToOpenXML' opts (Para lst)
   | null lst && not (isEnabled Ext_empty_paragraphs opts) = return []
   | otherwise = do
